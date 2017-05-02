@@ -11,18 +11,18 @@ it goes from there ;p
 Current Functions of Remote Administration Tool:
 ------------------------------------------------
 
-Options:
+Options:<br />
 
-  1               Interactive Shell
-                  Type "quit" to return to menu from Interactive Shell
-  2               Upload File
-  3               Download File
-  4               Target IP & Port
-  quit            Quit
-  help            Display Options
-  disconnect      Disconnect from Client
+  1               Interactive Shell<br />
+                  Type "quit" to return to menu from Interactive Shell<br />
+  2               Upload File<br />
+  3               Download File<br />
+  4               Target IP & Port<br />
+  quit            Quit<br />
+  help            Display Options<br />
+  disconnect      Disconnect from Client<br />
   
  ----------------------------------------------- 
  
-note - Needed source code for options 2 & 3.
-This project is meant for educational purposes only and may not be used against the law. 
+note - Needed source code for options 2 & 3.<br />
+This project is meant for educational purposes only and may not be used against the law. <br />
