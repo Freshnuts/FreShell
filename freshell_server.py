@@ -3,7 +3,6 @@ import socket
 import subprocess
 import sys
 
-
 host = ''
 port = 443
 
