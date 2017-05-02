@@ -16,7 +16,7 @@ Options:<br />
   1               Interactive Shell<br />
   2               Upload File<br />
   3               Download File<br />
-  4               Target IP & Port<br />
+  4               Display Target IP & Port<br />
   quit            Quit<br />
   help            Display Options<br />
   disconnect      Disconnect from Client<br />
