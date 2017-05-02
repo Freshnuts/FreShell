@@ -13,7 +13,7 @@ Current Functions of Remote Administration Tool:
 
 Options:<br />
 
-  1\tInteractive Shell<br />
+  1<t>Interactive Shell</t><br />
                   Type "quit" to return to menu from Interactive Shell<br />
   2               Upload File<br />
   3               Download File<br />
