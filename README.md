@@ -17,11 +17,11 @@ Options:<br />
   2               Upload File<br />
   3               Download File<br />
   4               Display Target IP & Port<br />
+  5               Keylogger (Not yet added)
   quit            Quit<br />
   help            Display Options<br />
   disconnect      Disconnect from Client<br />
   
  ----------------------------------------------- 
  
-note - Needed source code for options 2 & 3.<br />
 This project is meant for educational purposes only and may not be used against the law. <br />
