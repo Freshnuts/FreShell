@@ -18,7 +18,7 @@ Options:<br />
   2               Upload File<br />
   3               Download File<br />
   4               Display Target IP & Port<br />
-  5               Keylogger (Not yet added)
+  5               Keylogger (Not yet added)<br />
   quit            Quit<br />
   help            Display Options<br />
   disconnect      Disconnect from Client<br />
