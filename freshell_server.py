@@ -61,8 +61,6 @@ Options:
             command()
         elif choice == "2":
             print "Upload File to: ", addr
-            global input_f
-            input_f = raw_input("File: ")
             conn.send("rcv_file")
             snd_file()
         elif choice == "3":
@@ -104,8 +102,9 @@ def command():
 
 # Upload File
 def snd_file():
+    input_f = raw_input("File path: ")
+    conn.send(input_f)
     snd_f = open(input_f, "rb")
-    global read
     read = snd_f.read()
     conn.send(read)
     print "[+] File Sent"
@@ -115,7 +114,6 @@ def snd_file():
 # Download File
 def rcv_file():
     loc_f = raw_input("Target full file path: ")
-    conn.send(loc_f) 
     rcv_f = open("newfile", "wb+")
     data_f = conn.recv(4096)
     rcv_f.write(data_f)
