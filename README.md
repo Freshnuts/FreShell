@@ -1,17 +1,17 @@
 # FreShell
-A programming project to further educate myself in Python Subprocess, Sockets, I/O, Error Handling, & Threading.
-The objective use of this program is Remote Administration Tool(RAT). Users are provided with a remote 
-interactive shell, or may choose an automated task (ex. Download/Upload File).
+A programming project to further educate myself in Python Subprocess, Sockets, I/O, Error Handling, & Threading.<br />
+The objective use of this program is Remote Administration Tool(RAT). Users are provided with a remote <br />
+interactive shell, or may choose an automated task (ex. Download/Upload File).<br />
 
-I will be adding more options to this project sequentially. FreShell will be easily editable & scalable using
-structural programming. In the future I will be continuing this project onto C Programming language and see how
-it goes from there ;p
+I will be adding more options to this project sequentially. FreShell will be easily editable & scalable using<br />
+structural programming. In the future I will be continuing this project onto C Programming language and see how<br />
+it goes from there ;p<br />
 
-##Running on Debian Linux##
+##Running on Debian Linux##<br />
 
-Next Few Updates Notes:KL, Threading Notes: <br />
+Next Few Updates Notes: KL, Threading Notes: <br />
 
--Adding proper error handling for all functions
+-Adding proper error handling for all functions<br />
 -threading connect() for multiple client connections<br />
 -update option "4" to read ALL clients & if connected realtime<br />
 -Threading Keylogger to run in background & the ability to deploy multiple<br />
