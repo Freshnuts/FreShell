@@ -31,9 +31,9 @@ Options:<br />
   3               Download File<br />
   4               Display Target IP & Port<br />
   5               Keylogger (Not yet added)<br />
-  quit            Quit<br />
+  q               Quit & Exit Program.<br />
   help            Display Options<br />
-  disconnect      Disconnect from Client<br />
+  dc              Disconnect from Client ONLY, (No Exit)<br />
   
  ----------------------------------------------- 
  
