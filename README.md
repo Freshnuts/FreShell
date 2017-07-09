@@ -1,6 +1,6 @@
 # FreShell
 A programming project to further educate myself in Python Subprocess, Sockets, I/O, Error Handling, & Threading.<br />
-The objective use of this program is Remote Administration Tool(RAT). Users are provided with a remote <br />
+The objective use of this program is a Reverse Shell. Users are provided with a remote <br />
 interactive shell, or may choose an automated task (ex. Download/Upload File).<br />
 
 I will be adding more options to this project sequentially. FreShell will be easily editable & scalable using<br />
@@ -9,12 +9,13 @@ it goes from there ;p<br />
 
 ##Running on Debian Linux##<br />
 
-Next Few Updates Notes: KL, Threading Notes: <br />
+<h1> Update for freShell 7/9/17</h1>
+I am abandoning this project as a RAT and keeping it as Reverse Shell. Reason being, I had<br />
+to change this program's source code completely to have it function properly with<br />
+multiprocessing capabilites for multiple clients. Currently, I am working on the<br />
+"freshRAT", which is actually a RAT. Along, with FreshBot, which is my botnet project.<br />
 
 -Adding proper error handling for all functions<br />
--threading connect() for multiple client connections<br />
--update option "4" to read ALL clients & if connected realtime<br />
--Threading Keylogger to run in background & the ability to deploy multiple<br />
 ADDING:<br />
 -File Exfiltration/Data Extrusion from apps and files<br />
 -Open Backdoor/Bind Shell Persistence<br />
