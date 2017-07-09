@@ -4,7 +4,6 @@ import subprocess
 import sys
 import time
 
-global i
 i=0
 
 def banner():
@@ -116,7 +115,7 @@ def main():
             sys.stdout.write("[+] Connected: ")
             print addr
     options = """
-Options:
+  =======================================================================
 
   1               Interactive Shell
                   - Type "quit" to return to menu from Interactive Shell
@@ -125,7 +124,8 @@ Options:
   4               Target IP & Port
   q               Quit
   help            Display Options
-  dc              Disconnect from Client"""
+  dc              Disconnect from Client
+  ======================================================================="""
     print options
     while True:
         choice = raw_input("> ")
@@ -176,6 +176,6 @@ listen()
 accept()
 main()
 
-# In case function don't exit & close socket properly.
+# In case functions don't exit and/or close sockets properly.
 s.close()
 exit()
