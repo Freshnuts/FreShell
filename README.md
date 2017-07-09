@@ -21,8 +21,8 @@ ADDING:<br />
 -Open Backdoor/Bind Shell Persistence<br />
 -Reverse Shell Persistence with Cron/At<br />
 
-Current Functions of Remote Administration Tool:
-------------------------------------------------
+Current Functions of FreShell Reverse Shell:
+--------------------------------------------
 
 Options:<br />
 
