@@ -6,7 +6,6 @@ OK - Upload File
 OK - Download file
 OK - IP & Port of Target
 In-Progress - Error Exception Handling
-- Firewall configuration (disable/enable)
 - Open Backdoor/Bind Shell
 - Persistence with Cron/at
 - Keylogger
