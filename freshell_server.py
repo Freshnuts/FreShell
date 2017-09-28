@@ -116,7 +116,6 @@ def main():
             print addr
     options = """
   =======================================================================
-
   1               Interactive Shell
                   - Type "quit" to return to menu from Interactive Shell
   2               Upload File

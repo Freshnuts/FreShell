@@ -1,0 +1,23 @@
+RAT Specification Objective
+===========================
+
+OK - Interactive Shell
+OK - Upload File
+OK - Download file
+OK - IP & Port of Target
+In-Progress - Error Exception Handling
+- Firewall configuration (disable/enable)
+- Open Backdoor/Bind Shell
+- Persistence with Cron/at
+- Keylogger
+
+
+
+Optimizations, Troubleshooting, Issues
+========================================
+
+- Interactive Shell get stuck after the commands "rm" or "shred"
+- Update Option 4 to update if the Client Disconnects
+- Add Error Handling for functions
+- Replace "s.recv(CONSTANT)" with "s.recv(Dynamic File Size)" len()/size()
+

