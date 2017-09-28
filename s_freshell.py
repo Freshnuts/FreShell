@@ -64,9 +64,7 @@ def command():
             conn.send(cmd)
         except:
             print "[-] Cannot send user input."
-        if cmd == "quit":
-            main()
-        elif cd == "cd":
+        if cd == "cd":
             continue
         else:
             data = conn.recv(4096)
