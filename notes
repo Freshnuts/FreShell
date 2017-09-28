@@ -5,11 +5,10 @@ OK - Interactive Shell
 OK - Upload File
 OK - Download file
 OK - IP & Port of Target
-In-Progress - Error Exception Handling
-- Open Backdoor/Bind Shell
+OK -  Open Backdoor/Bind Shell
 - Persistence with Cron/at
 - Keylogger
-
+(In-Progress) - Error Exception Handling
 
 
 Optimizations, Troubleshooting, Issues
