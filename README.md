@@ -9,17 +9,6 @@ it goes from there ;p<br />
 
 ##Running on Debian Linux##<br />
 
-<h1> Update for freShell 7/9/17</h1>
-I am abandoning this project as a RAT and keeping it as Reverse Shell. Reason being, I had<br />
-to change this program's source code completely to have it function properly with<br />
-multiprocessing capabilites for multiple clients. Currently, I am working on the<br />
-"freshRAT", which is actually a RAT. Along, with FreshBot, which is my botnet project.<br />
-
--Adding proper error handling for all functions<br />
-ADDING:<br />
--File Exfiltration/Data Extrusion from apps and files<br />
--Open Backdoor/Bind Shell Persistence<br />
--Reverse Shell Persistence with Cron/At<br />
 
 Current Functions of FreShell Reverse Shell:
 --------------------------------------------
@@ -30,7 +19,8 @@ Options:<br />
   2               Upload File<br />
   3               Download File<br />
   4               Display Target IP & Port<br />
-  5               Keylogger (Not yet added)<br />
+  5               Backdoor Client<br />
+  6               Kill Backdoor<br />
   q               Quit & Exit Program.<br />
   help            Display Options<br />
   dc              Disconnect from Client ONLY, (No Exit)<br />
