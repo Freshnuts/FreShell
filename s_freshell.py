@@ -64,7 +64,7 @@ def command():
             conn.send(cmd)
         except:
             print "[-] Cannot send user input."
-        if cmd == "quit":
+        if cmd == "quit" or "exit":
             main()
         elif cd == "cd":
             continue
